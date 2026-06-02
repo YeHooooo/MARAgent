@@ -1,0 +1,48 @@
+paths:
+  tools_root: tools
+  output_dir: outputs
+  memory_root: memory_bank
+
+runtime:
+  device: auto
+  offline: false
+  image_size: 416
+  physical_max: 0.5
+  memory_warmup_threshold: 50
+  top_k_memory: 5
+
+vlm:
+  api_key_env: MARAGENT_API_KEY
+  base_url_env: MARAGENT_BASE_URL
+  model_env: MARAGENT_MODEL
+  default_base_url: ""
+  default_model: ""
+  temperature: 0
+  max_tokens: 1024
+  timeout: 300
+  max_retries: 3
+
+models:
+  supervised:
+    - DICDNet
+    - OSCNet
+    - OSCNet+
+    - InDuDoNet
+    - InDuDoNet+
+    - ACDNet
+  unsupervised:
+    - ADN
+    - SemiMAR
+    - calimar_gan
+  fast_supervised: OSCNet+
+  fast_unsupervised: calimar_gan
+  weights:
+    DICDNet: tools/DICDNet/pretrain_model/DICDNet_latest.pt
+    OSCNet: tools/OSCNet/pretrained_model/model_osc/net_latest.pt
+    OSCNet+: tools/OSCNet/pretrained_model/model_oscplus/net_latest.pt
+    InDuDoNet: tools/InDuDoNet/pretrained_model/InDuDoNet_latest.pt
+    InDuDoNet+: tools/InDuDoNet_plus/pretrained_model/InDuDoNet+_latest.pt
+    ACDNet: tools/ACDNet/models/ACDNet_latest.pt
+    ADN: tools/adn/adn/runs/mmdental/net_199.pt
+    SemiMAR: tools/SemiMAR/SemiMAR/runs/yofo_data/net_199.pt
+    calimar_gan: tools/calimar/checkpoints/my_calimar_training/latest_net_G_A.pth
