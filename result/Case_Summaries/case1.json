@@ -1,0 +1,27 @@
+{
+  "case_id": "1",
+  "input_path": "",
+  "preview_path": "",
+  "route": {
+    "route": "all_model_race",
+    "model_pool": [],
+    "models_to_run": [],
+    "is_dental": false,
+    "reason": "",
+    "memory_result": {}
+  },
+  "candidates": [],
+  "best_model": "InDuDoNet+",
+  "best_result_path": "",
+  "selection_reason": "The InDuDoNet+ model provides the most visually pleasing result by effectively removing the severe metal streak artifacts while maintaining high structural fidelity. It offers superior sharpness and contrast in anatomical details (such as the kidneys and spine) compared to the over-smoothed DICDNet and the noisier OSCNet variants.",
+  "diff_path": "...",
+  "report": {
+    "report_text": "Detected spinal fixation hardware (bilateral pedicle screws) in the lumbar spine. The Metal Artifact Reduction process successfully suppressed severe beam-hardening streaks, significantly improving the visibility of the retroperitoneal soft tissues, including the psoas muscles and kidneys. However, the difference map reveals excessive signal subtraction within the vertebral anatomy. High-intensity areas in the difference map correspond to the bone structure between the screws and the anterior rim of the vertebra, indicating that the algorithm has erroneously removed real osseous information along with the artifacts.",
+    "structural_defects": [
+            "Vertebral body anterior cortex",
+            "Inter-screw trabecular bone"
+        ],
+    "has_warning": true,
+    "raw": {}
+  }
+}
