@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -49,6 +50,12 @@ class MARAgentPipeline:
             self.device,
             image_size=runtime.get("image_size", 416),
             physical_max=runtime.get("physical_max", 0.5),
+            h5_image_keys=runtime.get("h5_image_keys"),
+            h5_li_keys=runtime.get("h5_li_keys"),
+            h5_mask_keys=runtime.get("h5_mask_keys"),
+            h5_sma_keys=runtime.get("h5_sma_keys"),
+            h5_sli_keys=runtime.get("h5_sli_keys"),
+            h5_trace_keys=runtime.get("h5_trace_keys"),
         )
         self.runner = ModelRunner(
             self.device,
@@ -59,7 +66,7 @@ class MARAgentPipeline:
 
     def run_path(self, input_path: str | Path) -> CaseResult:
         input_path = Path(input_path).resolve()
-        case_id = input_path.stem
+        case_id = self._make_case_id(input_path)
         paths = self._case_dirs()
         preview_path = paths["inputs"] / f"{case_id}_input.png"
         tensors = self.preprocessor.prepare(input_path, preview_path)
@@ -165,3 +172,20 @@ class MARAgentPipeline:
         parent = str(self.tools_root.parent)
         if parent not in sys.path:
             sys.path.insert(0, parent)
+
+    @staticmethod
+    def _make_case_id(input_path: Path) -> str:
+        if input_path.suffix.lower() not in {".h5", ".hdf5"}:
+            return input_path.stem
+
+        parent_parts = list(input_path.parent.parts)
+        lower_parts = [part.lower() for part in parent_parts]
+        if "test_640geo" in lower_parts:
+            idx = len(lower_parts) - 1 - lower_parts[::-1].index("test_640geo")
+            id_parts = parent_parts[idx + 1 :]
+        else:
+            id_parts = parent_parts[-2:]
+
+        raw_id = "_".join([*id_parts, input_path.stem])
+        case_id = re.sub(r"[^0-9A-Za-z._+-]+", "_", raw_id).strip("_")
+        return case_id or input_path.stem

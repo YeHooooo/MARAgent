@@ -9,9 +9,13 @@ from maragent.config import load_config
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run the MARAgent pipeline.")
     parser.add_argument("--config", default="configs/default.yaml", help="Path to YAML config.")
-    parser.add_argument("--input", help="Single input image or NPY file.")
+    parser.add_argument("--input", help="Single input image, NPY, H5, or HDF5 file.")
     parser.add_argument("--input-dir", help="Directory for batch inference.")
-    parser.add_argument("--glob", default="*.png", help="Glob used with --input-dir.")
+    parser.add_argument(
+        "--glob",
+        default="*.png",
+        help='Glob used with --input-dir, for example "*.png", "*.npy", or "**/*.h5".',
+    )
     parser.add_argument("--output", help="Override output directory.")
     parser.add_argument("--tools-root", help="Override tools directory.")
     parser.add_argument("--offline", action="store_true", help="Use heuristic VLM substitute for smoke tests.")
@@ -39,7 +43,7 @@ def main() -> None:
     if not args.input_dir:
         raise SystemExit("Provide --input or --input-dir.")
 
-    paths = sorted(Path(args.input_dir).glob(args.glob))
+    paths = sorted(path for path in Path(args.input_dir).glob(args.glob) if path.is_file())
     if not paths:
         raise SystemExit(f"No files matched {args.glob} in {args.input_dir}")
     results = pipeline.run_many(paths)

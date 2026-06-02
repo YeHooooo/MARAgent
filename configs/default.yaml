@@ -8,6 +8,36 @@ runtime:
   offline: false
   image_size: 416
   physical_max: 0.5
+  h5_image_keys:
+    - ma_CT
+    - Xma
+    - xma
+    - image
+    - ct
+    - data
+  h5_li_keys:
+    - LI_CT
+    - XLI
+    - xli
+    - LI
+  h5_mask_keys:
+    - metal_mask
+    - mask
+    - Mask
+    - M
+    - metal
+  h5_sma_keys:
+    - ma_sinogram
+    - Sma
+    - sma
+  h5_sli_keys:
+    - LI_sinogram
+    - SLI
+    - sli
+  h5_trace_keys:
+    - metal_trace
+    - Tr
+    - trace
   memory_warmup_threshold: 50
   top_k_memory: 5
 
