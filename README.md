@@ -199,6 +199,7 @@ Downstream segmentation visualization on the CTPelvic1K clinical dataset (window
 
 ### Table IV. Clinical Dental-CBCT Likert-scale evaluation
 Likert-scale evaluation scores of different models by two doctors. Values are reported as mean ± standard deviation (SD) with 95% confidence intervals (CI).
+
 ![Likert Table](imgs/png/Table_Likert.png)
 
 Radiologist subjective evaluation using a five-point Likert scale. MARAgent achieves the highest average scores from both radiologists, indicating better artifact removal and structure preservation.
