@@ -159,18 +159,6 @@ python scripts/run_maragent.py \
 
 ### Batch H5 inference
 
-For H5 cases stored directly in one folder:
-
-```bash
-python scripts/run_maragent.py \
-  --input-dir /path/to/h5_cases \
-  --glob "*.h5" \
-  --config configs/default.yaml \
-  --output result
-```
-
-For SynDeepLesion-style nested folders under `test_640geo`, use a recursive glob:
-
 ```bash
 python scripts/run_maragent.py \
   --input-dir /path/to/SynDeepLesion/test/test_640geo \
